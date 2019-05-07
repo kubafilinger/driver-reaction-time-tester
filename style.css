@@ -1,0 +1,17 @@
+.time-list {
+    list-style-type: decimal;
+}
+
+.panel {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#video {
+    width: 100%;
+    height: auto;
+}
+
+#beep {
+    display: none;
+}

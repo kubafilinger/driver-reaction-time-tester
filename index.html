@@ -1,0 +1,106 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <title>Driver reaction time tester</title>
+
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+<main role="main">
+    <div class="container">
+        <div class="row">
+            <video id="video" muted>
+                <source src="video.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
+
+    <div class="jumbotron panel">
+        <div class="row">
+            <div class="col text-center">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="with-beep" id="with-sound-checkbox" checked>
+                    <label class="form-check-label" for="with-sound-checkbox">
+                        z dzwiękiem
+                    </label>
+                </div>
+            </div>
+            <div class="col text-center">
+                <h2 id="timebox"></h2>
+            </div>
+            <div class="col text-center">
+                <button id="play-button" class="btn btn-success">Play</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mt-4">
+                <h2>Timebox</h2>
+                <ul class="time-list" id="time-list"></ul>
+                <h5>AVG: <span id="avg-reaction-time">0s</span></h5>
+                <button class="btn btn-primary" id="save-button">Save</button>
+            </div>
+            <div class="col-md-6 mt-4">
+                <h2>Info</h2>
+                <form id="user-details-form">
+                    <div class="form-group row">
+                        <label for="age" class="col-sm-3 col-form-label">Wiek (w latach):</label>
+                        <div class="col-sm-9">
+                            <input type="number" class="form-control" id="age" name="age">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <p class="col-sm-3 col-form-label">Płeć:</p>
+                        <div class="col-sm-9">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="sex" id="male" value="male" checked>
+                                <label class="form-check-label" for="male">
+                                    Mężczyzna
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="sex" id="female" value="female">
+                                <label class="form-check-label" for="female">
+                                    Kobieta
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="driver-license" class="col-sm-3 col-form-label">Od ilu lat posiadasz prawojazdy?</label>
+                        <div class="col-sm-9">
+                            <input type="number" class="form-control" id="driver-license" name="driver-license">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <hr>
+
+    </div> <!-- /container -->
+
+</main>
+
+<footer class="text-muted">
+    <div class="container">
+        <p class="float-right">
+            <a href="#">Back to top</a>
+        </p>
+        <p>Link to <a href="https://github.com/kubafilinger/driver-reaction-time-tester" target="_blank">Github</a></p>
+    </div>
+</footer>
+<audio id="beep">
+    <source src="beep.mp3" type="audio/mpeg">
+</audio>
+
+<script src="script.js"></script>
+</body>
+</html>

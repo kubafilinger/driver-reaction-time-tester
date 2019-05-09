@@ -14,14 +14,20 @@
 <main role="main">
     <div class="container">
         <div class="row">
-            <video id="video" muted>
-                <source src="public/video.mp4" type="video/mp4">
+            <video id="video" class="video" muted>
+                <source src="public/video.webm" type="video/mp4">
             </video>
         </div>
     </div>
 
     <div class="jumbotron panel">
         <div class="row">
+            <div class="col text-center">
+                <h2 id="timebox"></h2>
+            </div>
+            <div class="col text-center">
+                <button id="play-button" class="btn btn-success play-button">Play</button>
+            </div>
             <div class="col text-center">
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" name="with-beep" id="with-sound-checkbox" checked>
@@ -30,25 +36,23 @@
                     </label>
                 </div>
             </div>
-            <div class="col text-center">
-                <h2 id="timebox"></h2>
-            </div>
-            <div class="col text-center">
-                <button id="play-button" class="btn btn-success">Play</button>
-            </div>
         </div>
     </div>
 
     <div class="container">
         <div class="row">
-            <div class="col-md-6 mt-4">
-                <h2>Timebox</h2>
-                <ul class="time-list" id="time-list"></ul>
-                <h5>AVG: <span id="avg-reaction-time">0s</span></h5>
-                <button class="btn btn-primary" id="save-button">Save</button>
+            <div class="col-lg-3 mt-4">
+                <h2>Timebox z dzwiękiem</h2>
+                <ul class="time-list" id="time-list-with-sound"></ul>
+                <h5>AVG: <span id="avg-reaction-time-with-sound">0s</span></h5>
             </div>
-            <div class="col-md-6 mt-4">
-                <h2>Info</h2>
+            <div class="col-lg-3 mt-4">
+                <h2>Timebox bez dzwięku</h2>
+                <ul class="time-list" id="time-list-without-sound"></ul>
+                <h5>AVG: <span id="avg-reaction-time-without-sound">0s</span></h5>
+            </div>
+            <div class="col-lg-3 mt-4">
+                <h2>Dane</h2>
                 <form id="user-details-form">
                     <div class="form-group row">
                         <label for="age" class="col-sm-3 col-form-label">Wiek (w latach):</label>
@@ -79,7 +83,16 @@
                             <input type="number" class="form-control" id="driver-license" name="driver-license">
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col text-center">
+                            <button class="btn btn-primary" id="save-button">Save</button>
+                        </div>
+                    </div>
                 </form>
+            </div>
+            <div class="col-lg-3 mt-4">
+                <h2>Info</h2>
+                <p>Po wciśnięciu play można zatrzymać czas również spacją.</p>
             </div>
         </div>
 
@@ -97,7 +110,7 @@
         <p>Link to <a href="https://github.com/kubafilinger/driver-reaction-time-tester" target="_blank">Github</a></p>
     </div>
 </footer>
-<audio id="beep">
+<audio id="beep" class="beep">
     <source src="public/beep.mp3" type="audio/mpeg">
 </audio>
 

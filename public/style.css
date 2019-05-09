@@ -7,11 +7,15 @@
     padding-bottom: 20px;
 }
 
-#video {
+.video {
     width: 100%;
     height: auto;
 }
 
-#beep {
+.beep {
     display: none;
+}
+
+.play-button {
+    padding: 20px 60px;
 }

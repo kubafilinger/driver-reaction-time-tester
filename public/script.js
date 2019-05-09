@@ -8,53 +8,75 @@ const withSoundCheckbox = document.getElementById('with-sound-checkbox');
 const playButton = document.getElementById('play-button');
 const saveButton = document.getElementById('save-button');
 const timebox = document.getElementById('timebox');
-const timeTable = document.getElementById('time-list');
-const avgReactionTime = document.getElementById('avg-reaction-time');
+const timeTableWithSound = document.getElementById('time-list-with-sound');
+const timeTableWithoutSound = document.getElementById('time-list-without-sound');
+const avgReactionTimeWithSound = document.getElementById('avg-reaction-time-with-sound');
+const avgReactionTimeWithoutSound = document.getElementById('avg-reaction-time-without-sound');
 const userDetailsForm = document.getElementById('user-details-form');
+
+const MAX_REACTION_TIME = 8000;
+const MAX_WAIT_TIME = 3000;
+const MIN_WAIT_TIME = 2000;
 
 let withSound = true;
 let stateApplication = STOPPED;
 let timeFromRun = 0;
-let reactionTimeList = [];
+let reactionTimeListWithSound = [];
+let reactionTimeListWithoutSound = [];
 
 const calculateReactionTime = (timeStart, timeStop) => {
-  return (timeStop - timeStart) / 1000;
+  return (timeStop - timeStart);
 };
 
 const displayReactionTime = (time) => {
   timebox.innerHTML = `${time.toFixed(3)}s`;
 };
 
-const displayAvgReactionTime = () => {
-  const avgTime = reactionTimeList.reduce((total, num) => total + num) / reactionTimeList.length;
+const displayAvgReactionTimeWithSound = () => {
+  const avgTime = reactionTimeListWithSound.reduce((total, num) => total + num) / reactionTimeListWithSound.length;
 
-  avgReactionTime.innerHTML = `${avgTime.toFixed(3)}s`;
+  avgReactionTimeWithSound.innerHTML = `${avgTime.toFixed(3)}s`;
 };
 
-const displayReactionTimeList = () => {
-  timeTable.innerHTML = '';
+const displayAvgReactionTimeWithoutSound = () => {
+  const avgTime = reactionTimeListWithoutSound.reduce((total, num) => total + num) / reactionTimeListWithoutSound.length;
 
-  for (let i = 0; i < reactionTimeList.length; i++) {
+  avgReactionTimeWithoutSound.innerHTML = `${avgTime.toFixed(3)}s`;
+};
+
+const displayReactionTimeListWithSound = () => {
+  timeTableWithSound.innerHTML = '';
+
+  for (let i = 0; i < reactionTimeListWithSound.length; i++) {
     let li = document.createElement('li');
-    li.innerHTML = `${reactionTimeList[i].toFixed(3)}s`;
+    li.innerHTML = `${reactionTimeListWithSound[i].toFixed(3)}s`;
 
-    timeTable.appendChild(li);
+    timeTableWithSound.appendChild(li);
+  }
+};
+
+const displayReactionTimeListWithoutSound = () => {
+  timeTableWithoutSound.innerHTML = '';
+
+  for (let i = 0; i < reactionTimeListWithoutSound.length; i++) {
+    let li = document.createElement('li');
+    li.innerHTML = `${reactionTimeListWithoutSound[i].toFixed(3)}s`;
+
+    timeTableWithoutSound.appendChild(li);
   }
 };
 
 const prepareApplication = () => {
-  console.log('prepare');
   stateApplication = PREPARE;
   timeFromRun = 0;
 
   videoFile.currentTime = 0;
   audioFile.currentTime = 0;
 
-  setTimeout(runApplication, Math.random() * (4000 - 2000) + 2000);
+  setTimeout(runApplication, Math.random() * (MAX_WAIT_TIME - MIN_WAIT_TIME) + MIN_WAIT_TIME);
 };
 
 const runApplication = () => {
-  console.log('run');
   stateApplication = RUNNING;
   timeFromRun = Date.now();
 
@@ -66,18 +88,30 @@ const runApplication = () => {
 };
 
 const stopApplication = () => {
-  console.log('stop');
   stateApplication = STOPPED;
-
-  const reactionTime = calculateReactionTime(timeFromRun, Date.now());
-
-  reactionTimeList.push(reactionTime);
-  displayReactionTime(reactionTime);
-  displayReactionTimeList();
-  displayAvgReactionTime();
 
   videoFile.pause();
   audioFile.pause();
+
+  const reactionTime = calculateReactionTime(timeFromRun, Date.now());
+
+  if (reactionTime <= MAX_REACTION_TIME) {
+    const reactionTimeInSecond = reactionTime / 1000;
+
+    if (withSound) {
+      reactionTimeListWithSound.push(reactionTimeInSecond);
+      displayReactionTimeListWithSound();
+      displayAvgReactionTimeWithSound();
+    } else {
+      reactionTimeListWithoutSound.push(reactionTimeInSecond);
+      displayReactionTimeListWithoutSound();
+      displayAvgReactionTimeWithoutSound();
+    }
+
+    displayReactionTime(reactionTimeInSecond);
+  } else {
+    alert('Niestety twój czas reakcji był zbyt długi, aby można było go zapisać :(');
+  }
 };
 
 window.addEventListener('DOMContentLoaded', () => {

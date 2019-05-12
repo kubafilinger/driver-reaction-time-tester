@@ -14,9 +14,11 @@
 <main role="main">
     <div class="container">
         <div class="row">
-            <video id="video" class="video" muted>
-                <source src="public/video.webm" type="video/mp4">
-            </video>
+            <div class="col video-container embed-responsive embed-responsive-4by3">
+                <video id="video" class="video" muted>
+                    <source src="public/video.mp4" type="video/mp4">
+                </video>
+            </div>
         </div>
     </div>
 
@@ -95,11 +97,7 @@
                 <p>Po wciśnięciu play można zatrzymać czas również spacją.</p>
             </div>
         </div>
-
-        <hr>
-
-    </div> <!-- /container -->
-
+    </div>
 </main>
 
 <footer class="text-muted">
@@ -114,6 +112,7 @@
     <source src="public/beep.mp3" type="audio/mpeg">
 </audio>
 
+<script src="public/axios.min.js"></script>
 <script src="public/script.js"></script>
 </body>
 </html>

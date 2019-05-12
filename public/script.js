@@ -10,12 +10,12 @@ const saveButton = document.getElementById('save-button');
 const timebox = document.getElementById('timebox');
 const timeTableWithSound = document.getElementById('time-list-with-sound');
 const timeTableWithoutSound = document.getElementById('time-list-without-sound');
-const avgReactionTimeWithSound = document.getElementById('avg-reaction-time-with-sound');
-const avgReactionTimeWithoutSound = document.getElementById('avg-reaction-time-without-sound');
+const avgReactionTimeWithSoundElement = document.getElementById('avg-reaction-time-with-sound');
+const avgReactionTimeWithoutSoundElement = document.getElementById('avg-reaction-time-without-sound');
 const userDetailsForm = document.getElementById('user-details-form');
 
 const MAX_REACTION_TIME = 8000;
-const MAX_WAIT_TIME = 3000;
+const MAX_WAIT_TIME = 10000;
 const MIN_WAIT_TIME = 2000;
 
 let withSound = true;
@@ -28,20 +28,30 @@ const calculateReactionTime = (timeStart, timeStop) => {
   return (timeStop - timeStart);
 };
 
+const calculateAvgReactionTime = (list) => {
+  if (list.length === 0) {
+    return 0;
+  }
+
+  const avgTime = list.reduce((total, num) => total + num) / list.length;
+
+  return avgTime.toFixed(3);
+}
+
 const displayReactionTime = (time) => {
   timebox.innerHTML = `${time.toFixed(3)}s`;
 };
 
 const displayAvgReactionTimeWithSound = () => {
-  const avgTime = reactionTimeListWithSound.reduce((total, num) => total + num) / reactionTimeListWithSound.length;
+  const avgTime = calculateAvgReactionTime(reactionTimeListWithSound);
 
-  avgReactionTimeWithSound.innerHTML = `${avgTime.toFixed(3)}s`;
+  avgReactionTimeWithSoundElement.innerHTML = `${avgTime}s`;
 };
 
 const displayAvgReactionTimeWithoutSound = () => {
-  const avgTime = reactionTimeListWithoutSound.reduce((total, num) => total + num) / reactionTimeListWithoutSound.length;
+  const avgTime = calculateAvgReactionTime(reactionTimeListWithoutSound);
 
-  avgReactionTimeWithoutSound.innerHTML = `${avgTime.toFixed(3)}s`;
+  avgReactionTimeWithoutSoundElement.innerHTML = `${avgTime}s`;
 };
 
 const displayReactionTimeListWithSound = () => {
@@ -135,12 +145,23 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  saveButton.addEventListener('click', () => {
+  saveButton.addEventListener('click', (e) => {
+    e.preventDefault();
+
     let formData = new FormData(userDetailsForm);
 
     console.log(formData.get('age'));
     console.log(formData.get('sex'));
     console.log(formData.get('driver-license'));
+
+    axios
+      .post('/times', {
+        age: formData.get('age'),
+        sex: formData.get('sex'),
+        driverLicense: formData.get('driver-license'),
+        reactionWithSound: calculateAvgReactionTime(reactionTimeListWithSound),
+        reactionWithoutSound: calculateAvgReactionTime(reactionTimeListWithoutSound),
+      })
   });
 
   displayReactionTime(0);

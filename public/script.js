@@ -76,9 +76,19 @@ const displayReactionTimeListWithoutSound = () => {
   }
 };
 
+const blockWithSoundCheckbox = () => {
+  withSoundCheckbox.disabled = true;
+};
+
+const unblockWithSoundCheckbox = () => {
+  withSoundCheckbox.disabled = false;
+};
+
 const prepareApplication = () => {
   stateApplication = PREPARE;
   timeFromRun = 0;
+
+  blockWithSoundCheckbox();
 
   videoFile.currentTime = 0;
   audioFile.currentTime = 0;
@@ -99,6 +109,8 @@ const runApplication = () => {
 
 const stopApplication = () => {
   stateApplication = STOPPED;
+
+  unblockWithSoundCheckbox();
 
   videoFile.pause();
   audioFile.pause();
@@ -148,11 +160,13 @@ window.addEventListener('DOMContentLoaded', () => {
   saveButton.addEventListener('click', (e) => {
     e.preventDefault();
 
-    let formData = new FormData(userDetailsForm);
+    if (reactionTimeListWithSound.length === 0 && reactionTimeListWithoutSound.length === 0) {
+      alert('Error: Tabela z czasami jest pusta');
 
-    console.log(formData.get('age'));
-    console.log(formData.get('sex'));
-    console.log(formData.get('driver-license'));
+      return;
+    }
+
+    let formData = new FormData(userDetailsForm);
 
     axios
       .post('/times', {
@@ -161,7 +175,14 @@ window.addEventListener('DOMContentLoaded', () => {
         driverLicense: formData.get('driver-license'),
         reactionWithSound: calculateAvgReactionTime(reactionTimeListWithSound),
         reactionWithoutSound: calculateAvgReactionTime(reactionTimeListWithoutSound),
+      }).then((res) => {
+        console.log(res);
+        alert('Dane zostały zapisane prawidłowo');
+      }).catch((err) => {
+        console.log(err);
+        alert('Error: Błąd w zapisie danych do bazy');
       })
+
   });
 
   displayReactionTime(0);

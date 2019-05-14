@@ -15,7 +15,8 @@ class Reaction {
       age: this.age,
       sex: this.sex,
       driverLicense: this.driverLicense,
-      createdAt: this.createdAt.getTime(),
+      createdAt: `${this.createdAt.getFullYear()}-${this.createdAt.getMonth()}-${this.createdAt.getDate()} ${this.createdAt.getHours()}:${this.createdAt.getMinutes()}:${this.createdAt.getSeconds()}`,
+      timestamp: this.createdAt.getTime(),
     }
   }
 }

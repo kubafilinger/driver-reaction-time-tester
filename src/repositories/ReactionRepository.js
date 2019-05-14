@@ -21,6 +21,7 @@ class ReactionRepository {
         sex: 1,
         driverLicense: 1,
         createdAt: 1,
+        timestamp: 1
       }
     }).toArray()
   }

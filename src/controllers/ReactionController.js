@@ -7,17 +7,18 @@ module.exports = {
     const reactionRepository = new ReactionRepository()
     const { age, sex, driverLicense, reactionWithSound, reactionWithoutSound } = req.body
 
-    const reactionWithSoundObj = new Reaction(reactionWithSound, true, age, sex, driverLicense)
-    const reactionWithoutSoundObj = new Reaction(reactionWithoutSound, false, age, sex, driverLicense)
+    for (let i = 0; i < reactionWithSound.length; i++) {
+      const reactionWithSoundObj = new Reaction(reactionWithSound[i], true, age, sex, driverLicense)
+      reactionRepository.save(reactionWithSoundObj)
+    }
 
-    reactionRepository.save(reactionWithSoundObj)
-    reactionRepository.save(reactionWithoutSoundObj)
+    for (let i = 0; i < reactionWithoutSound.length; i++) {
+      const reactionWithoutSoundObj = new Reaction(reactionWithoutSound[i], true, age, sex, driverLicense)
+      reactionRepository.save(reactionWithoutSoundObj)
+    }
 
     res.statusCode = 201
-    res.json({
-      reactionWithSoundObj,
-      reactionWithoutSoundObj
-    })
+    res.send('OK')
   },
 
   listAction: async (req, res) => {

@@ -136,6 +136,19 @@ const stopApplication = () => {
   }
 };
 
+const clearReactionTimes = () => {
+  reactionTimeListWithSound = [];
+  reactionTimeListWithoutSound = [];
+
+  displayReactionTimeListWithSound();
+  displayAvgReactionTimeWithSound();
+
+  displayReactionTimeListWithoutSound();
+  displayAvgReactionTimeWithoutSound();
+
+  displayReactionTime(0);
+}
+
 window.addEventListener('DOMContentLoaded', () => {
   // listeners
   withSoundCheckbox.addEventListener('change', (e) => {
@@ -173,10 +186,11 @@ window.addEventListener('DOMContentLoaded', () => {
         age: formData.get('age'),
         sex: formData.get('sex'),
         driverLicense: formData.get('driver-license'),
-        reactionWithSound: calculateAvgReactionTime(reactionTimeListWithSound),
-        reactionWithoutSound: calculateAvgReactionTime(reactionTimeListWithoutSound),
+        reactionWithSound: reactionTimeListWithSound,
+        reactionWithoutSound: reactionTimeListWithoutSound,
       }).then((res) => {
         console.log(res);
+        clearReactionTimes();
         alert('Dane zostały zapisane prawidłowo');
       }).catch((err) => {
         console.log(err);

@@ -28,15 +28,10 @@
                 <h2 id="timebox"></h2>
             </div>
             <div class="col text-center">
-                <button id="play-button" class="btn btn-success play-button">Play</button>
+                <button id="play-button" class="btn btn-success play-button">Start simulation</button>
             </div>
             <div class="col text-center">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="with-beep" id="with-sound-checkbox" checked>
-                    <label class="form-check-label" for="with-sound-checkbox">
-                        z dzwiękiem
-                    </label>
-                </div>
+                <button id="refresh-button" class="btn btn-info play-button">Clear</button>
             </div>
         </div>
     </div>
@@ -44,44 +39,44 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-3 mt-4">
-                <h2>Timebox z dzwiękiem</h2>
+                <h2>Timebox with sound</h2>
                 <ul class="time-list" id="time-list-with-sound"></ul>
                 <h5>AVG: <span id="avg-reaction-time-with-sound">0s</span></h5>
             </div>
             <div class="col-lg-3 mt-4">
-                <h2>Timebox bez dzwięku</h2>
+                <h2>Timebox without sound</h2>
                 <ul class="time-list" id="time-list-without-sound"></ul>
                 <h5>AVG: <span id="avg-reaction-time-without-sound">0s</span></h5>
             </div>
             <div class="col-lg-3 mt-4">
-                <h2>Dane</h2>
+                <h2>Data</h2>
                 <form id="user-details-form">
                     <div class="form-group row">
-                        <label for="age" class="col-sm-3 col-form-label">Wiek (w latach):</label>
-                        <div class="col-sm-9">
+                        <label for="age" class="col-sm-6 col-form-label">Age:</label>
+                        <div class="col-sm-6">
                             <input type="number" class="form-control" id="age" name="age">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <p class="col-sm-3 col-form-label">Płeć:</p>
-                        <div class="col-sm-9">
+                        <p class="col-sm-6 col-form-label">Sex:</p>
+                        <div class="col-sm-6">
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="sex" id="male" value="male" checked>
                                 <label class="form-check-label" for="male">
-                                    Mężczyzna
+                                    Male
                                 </label>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="sex" id="female" value="female">
                                 <label class="form-check-label" for="female">
-                                    Kobieta
+                                    Female
                                 </label>
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="driver-license" class="col-sm-3 col-form-label">Od ilu lat posiadasz prawojazdy?</label>
-                        <div class="col-sm-9">
+                        <label for="driver-license" class="col-sm-6 col-form-label">How many years do you have a driving license?</label>
+                        <div class="col-sm-6">
                             <input type="number" class="form-control" id="driver-license" name="driver-license">
                         </div>
                     </div>
@@ -94,7 +89,7 @@
             </div>
             <div class="col-lg-3 mt-4">
                 <h2>Info</h2>
-                <p>Po wciśnięciu play można zatrzymać czas również spacją.</p>
+                <p>After pressing "Start simulation" you can also stop the time with a space.</p>
             </div>
         </div>
     </div>
@@ -111,6 +106,17 @@
 <audio id="beep" class="beep">
     <source src="public/beep.mp3" type="audio/mpeg">
 </audio>
+
+<div id="background-info" class="background-info">
+    <div class="container d-flex background-info-container">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-md-6 background-info-text">
+                <p>First, enter the user data (age, gender, and how many years you have a driver licence). To start reaction time measurement, all you need to do is to press the “Start simulation” button. When you notice that the white car is moving, press the „React” button. Please carry out at least a few measurements. After you have finished, press the ‘Save’ button at the bottom of the page to save the results.</p>
+                <button id="info-close-button" class="btn btn-secondary">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="public/axios.min.js"></script>
 <script src="public/script.js"></script>

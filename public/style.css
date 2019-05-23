@@ -25,3 +25,29 @@
 .play-button {
     padding: 20px 60px;
 }
+
+.background-info {
+    background: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: none;
+}
+
+.background-info-container {
+    height: 100vh;
+}
+
+.background-info-text {
+    padding: 15px;
+    margin: 0 20px;
+    background: white;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.background-info-text p {
+    text-align: justify;
+}

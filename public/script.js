@@ -236,3 +236,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
   displayReactionTime(0);
 });
+
+window.addEventListener('beforeunload', (e) => {
+  if (reactionTimeListWithSound.length > 0 || reactionTimeListWithoutSound.length > 0) {
+    e.preventDefault();
+    e.returnValue = '';
+  }
+})

@@ -13,7 +13,7 @@ module.exports = {
     }
 
     for (let i = 0; i < reactionWithoutSound.length; i++) {
-      const reactionWithoutSoundObj = new Reaction(reactionWithoutSound[i], true, age, sex, driverLicense)
+      const reactionWithoutSoundObj = new Reaction(reactionWithoutSound[i], false, age, sex, driverLicense)
       reactionRepository.save(reactionWithoutSoundObj)
     }
 

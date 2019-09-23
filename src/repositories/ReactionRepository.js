@@ -11,7 +11,7 @@ class ReactionRepository {
     })
   }
 
-  findAll() {
+  find(limit) {
     return this.db.collection('reactions').find({}, {
       projection: {
         _id: 0,
@@ -23,7 +23,7 @@ class ReactionRepository {
         createdAt: 1,
         timestamp: 1
       }
-    }).toArray()
+    }).limit(limit).toArray()
   }
 }
 

@@ -16,7 +16,6 @@ app.use('/public', express.static('public'))
 
 app.get('/', HomeController.homeAction)
 app.get('/times', ReactionController.listAction)
-app.get('/times/:format', ReactionController.downloadAction)
 app.post('/times', ReactionController.saveAction)
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

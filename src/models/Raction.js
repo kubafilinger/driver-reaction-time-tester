@@ -15,9 +15,13 @@ class Reaction {
       age: this.age,
       sex: this.sex,
       driverLicense: this.driverLicense,
-      createdAt: `${this.createdAt.getFullYear()}-${this.createdAt.getMonth()}-${this.createdAt.getDate()} ${this.createdAt.getHours()}:${this.createdAt.getMinutes()}:${this.createdAt.getSeconds()}`,
+      createdAt: `${this.createdAt.getFullYear()}-${this.getMonthWithZero(this.createdAt)}-${this.createdAt.getDate()} ${this.createdAt.getHours()}:${this.createdAt.getMinutes()}:${this.createdAt.getSeconds()}`,
       timestamp: this.createdAt.getTime(),
     }
+  }
+
+  getMonthWithZero(date) {
+    return ("0" + (date.getMonth() + 1)).slice(-2);
   }
 }
 
